@@ -29,6 +29,7 @@
  */
 
 import { parseArgs } from "node:util";
+// @ts-ignore
 import EventSource from "eventsource"; // run: npm install --save-dev eventsource @types/eventsource
 
 // ── Args ──────────────────────────────────────────────────────────────────────
