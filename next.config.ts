@@ -1,8 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // better-sqlite3 is a native module; keep it out of the bundler.
-  serverExternalPackages: ["better-sqlite3", "@prisma/adapter-better-sqlite3"],
+  // Native modules must stay out of the Next.js bundler
+  serverExternalPackages: [
+    "better-sqlite3",
+    "@prisma/adapter-better-sqlite3",
+    "@prisma/adapter-pg",
+    "pg",
+    "pg-native",
+  ],
   reactCompiler: false,
 };
 

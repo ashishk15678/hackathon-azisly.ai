@@ -1,42 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSessionCookie } from "better-auth/cookies";
 
-const PROTECTED_PREFIXES = ["/dashboard", "/game", "/host", "/profile"];
+const PROTECTED = ["/dashboard", "/host"];
 
-const AUTH_ONLY_PATHS = ["/login", "/signup"];
+const AUTH_ONLY = ["/login", "/signup"];
 
 export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  // const { pathname } = request.nextUrl;
+  // const isAuthenticated = Boolean(getSessionCookie(request));
 
-  const sessionCookie = getSessionCookie(request);
-  const isAuthenticated = Boolean(sessionCookie);
-
-  // if (isAuthenticated && AUTH_ONLY_PATHS.some((p) => pathname.startsWith(p))) {
+  // if (isAuthenticated && AUTH_ONLY.some((p) => pathname.startsWith(p))) {
   //   return NextResponse.redirect(new URL("/dashboard", request.url));
   // }
 
-  if (
-    !isAuthenticated &&
-    PROTECTED_PREFIXES.some((p) => pathname.startsWith(p))
-  ) {
-    const loginUrl = new URL("/login", request.url);
-    loginUrl.searchParams.set("next", pathname);
-    return NextResponse.redirect(loginUrl);
-  }
+  // if (!isAuthenticated && PROTECTED.some((p) => pathname.startsWith(p))) {
+  //   const url = new URL("/login", request.url);
+  //   url.searchParams.set("next", pathname);
+  //   return NextResponse.redirect(url);
+  // }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: [
-    /*
-     * Run on all routes except:
-     * - _next/static  (static assets)
-     * - _next/image   (image optimisation)
-     * - favicon.ico
-     * - /api/auth/*   (Better Auth endpoints must always be reachable)
-     * - /api/trpc/*   (tRPC — auth is enforced per-procedure, not at the edge)
-     */
-    "/((?!_next/static|_next/image|favicon.ico|api/auth|api/trpc).*)",
-  ],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|api/).*)"],
 };

@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
+import { Logout02Icon } from "hugeicons-react";
 
 export function SignOutButton() {
   const router = useRouter();
@@ -15,8 +16,9 @@ export function SignOutButton() {
   return (
     <button
       onClick={handleSignOut}
-      className="text-sm text-gray-500 hover:text-gray-900 transition-colors"
+      className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 transition-colors"
     >
+      <Logout02Icon size={15} />
       Sign out
     </button>
   );

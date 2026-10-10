@@ -2,55 +2,61 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useTRPC } from "@/trpc/client";
-import { useMutation } from "@tanstack/react-query";
+import { authClient } from "@/lib/auth-client";
 
 export function LoginForm() {
   const router = useRouter();
-  const trpc = useTRPC();
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail]       = useState("");
   const [password, setPassword] = useState("");
+  const [isPending, setPending] = useState(false);
+  const [error, setError]       = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
-
-  const { mutate, isPending, error } = useMutation(
-    trpc.auth.signIn.mutationOptions({
-      onSuccess: () => router.push("/dashboard"),
-    }),
-  );
 
   function validate() {
     const errs: Record<string, string> = {};
-    if (!email) errs.email = "Email is required";
+    if (!email)    errs.email    = "Email is required";
     if (!password) errs.password = "Password is required";
     setFieldErrors(errs);
     return Object.keys(errs).length === 0;
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setError(null);
     if (!validate()) return;
-    mutate({ email, password });
-  }
 
-  const serverError = error?.message ?? null;
+    setPending(true);
+    try {
+      // authClient.signIn.email hits /api/auth/sign-in/email and
+      // sets the session cookie in the browser response — tRPC cannot do this.
+      const result = await authClient.signIn.email({ email, password });
+      if (result.error) {
+        setError(result.error.message ?? "Invalid email or password.");
+        return;
+      }
+      router.push("/dashboard");
+      router.refresh(); // flush Next.js server-component cache so layout sees new session
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setPending(false);
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-5">
-      {serverError && (
+      {error && (
         <div
           role="alert"
           className="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700"
         >
-          {serverError}
+          {error}
         </div>
       )}
 
       <div>
-        <label
-          htmlFor="email"
-          className="block text-sm font-medium text-gray-700 mb-1.5"
-        >
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1.5">
           Email address
         </label>
         <input
@@ -67,26 +73,15 @@ export function LoginForm() {
           disabled={isPending}
         />
         {fieldErrors.email && (
-          <p id="email-error" className="mt-1 text-xs text-red-600">
-            {fieldErrors.email}
-          </p>
+          <p id="email-error" className="mt-1 text-xs text-red-600">{fieldErrors.email}</p>
         )}
       </div>
 
       <div>
         <div className="flex items-center justify-between mb-1.5">
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
             Password
           </label>
-          <a
-            href="#"
-            className="text-xs text-indigo-600 hover:text-indigo-500 hover:underline"
-          >
-            Forgot password?
-          </a>
         </div>
         <input
           id="password"
@@ -102,9 +97,7 @@ export function LoginForm() {
           disabled={isPending}
         />
         {fieldErrors.password && (
-          <p id="password-error" className="mt-1 text-xs text-red-600">
-            {fieldErrors.password}
-          </p>
+          <p id="password-error" className="mt-1 text-xs text-red-600">{fieldErrors.password}</p>
         )}
       </div>
 

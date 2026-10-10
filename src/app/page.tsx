@@ -901,7 +901,7 @@ export default function HomePage() {
       {/* ── HERO ── */}
       <section className="bg-[#f0efe9] px-6 lg:px-16 pt-14 pb-0 overflow-hidden">
         <div className="max-w-6xl mx-auto">
-          {/* Widget row */}
+          {/* Widget ro w */}
           <div className="reveal">
             <HeroWidget />
           </div>

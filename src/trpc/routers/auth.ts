@@ -53,7 +53,7 @@ export const authRouter = createTRPCRouter({
           password: input.password,
         },
       });
-
+      
       if (!result?.user) {
         throw new TRPCError({
           code: "UNAUTHORIZED",

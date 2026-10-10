@@ -11,8 +11,8 @@ export const metadata = {
 export default async function LoginPage() {
   // Server-side session check — redirect away if already logged in
   const caller = await createCaller();
-  const session = await caller.auth.getSession();
-  if (session) redirect("/dashboard");
+  //   const session = await caller.auth.getSession();
+  //   if (session) redirect("/dashboard");
 
   return (
     <main className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-12">

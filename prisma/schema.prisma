@@ -1,7 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
+// ─── Generator ────────────────────────────────────────────────────────────────
 
 generator client {
   provider = "prisma-client-js"
@@ -21,6 +18,14 @@ model User {
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
+
+  // AptiQuiz relations
+  college       College?  @relation(fields: [collegeId], references: [id])
+  collegeId     String?
+  questionSets  QuestionSet[]
+  rooms         Room[]          @relation("HostRooms")
+  answers       Answer[]
+  leagueEntries LeagueEntry[]
 
   @@unique([email])
   @@map("user")
@@ -72,4 +77,140 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+// ─── College ──────────────────────────────────────────────────────────────────
+
+model College {
+  id            String        @id @default(cuid())
+  name          String        @unique
+  users         User[]
+  leagueEntries LeagueEntry[]
+  createdAt     DateTime      @default(now())
+
+  @@map("college")
+}
+
+// ─── Question authoring ───────────────────────────────────────────────────────
+
+model QuestionSet {
+  id          String     @id @default(cuid())
+  title       String
+  description String?
+  hostId      String
+  host        User       @relation(fields: [hostId], references: [id], onDelete: Cascade)
+  questions   Question[]
+  rooms       Room[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([hostId])
+  @@map("question_set")
+}
+
+model Question {
+  id         String      @id @default(cuid())
+  setId      String
+  set        QuestionSet @relation(fields: [setId], references: [id], onDelete: Cascade)
+  prompt     String
+  // options stored as JSON array of strings e.g. ["A","B","C","D"]
+  options    Json
+  answerIdx  Int         // 0-based index into options[]
+  topic      String      // quantitative | logical | verbal | data_interpretation
+  difficulty String      // easy | medium | hard
+  imageUrl   String?
+  timeSecs   Int         @default(30)
+  order      Int         @default(0)
+  answers    Answer[]
+
+  @@index([setId])
+  @@map("question")
+}
+
+// ─── Rooms ────────────────────────────────────────────────────────────────────
+
+// Status lifecycle: waiting → active → finished
+model Room {
+  id          String       @id @default(cuid())
+  code        String       @unique  // 6-char join code
+  setId       String
+  set         QuestionSet  @relation(fields: [setId], references: [id])
+  hostId      String
+  host        User         @relation("HostRooms", fields: [hostId], references: [id])
+  status      RoomStatus   @default(waiting)
+  currentQIdx Int          @default(-1) // -1 = not started
+  qStartedAt  DateTime?    // server timestamp when current question started
+  qEndsAt     DateTime?    // server timestamp when current question closes
+  answers     Answer[]
+  guests      GuestPlayer[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([code])
+  @@map("room")
+}
+
+enum RoomStatus {
+  waiting
+  active
+  finished
+}
+
+// ─── Guest players (no account required) ─────────────────────────────────────
+
+model GuestPlayer {
+  id        String   @id @default(cuid())
+  roomId    String
+  room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  name      String
+  token     String   @unique // random token stored in cookie for reconnect
+  score     Int      @default(0)
+  answers   Answer[]
+  joinedAt  DateTime @default(now())
+
+  @@index([roomId])
+  @@map("guest_player")
+}
+
+// ─── Answers ─────────────────────────────────────────────────────────────────
+
+// Either userId OR guestId must be set (one of them is null)
+model Answer {
+  id               String      @id @default(cuid())
+  roomId           String
+  room             Room        @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  questionId       String
+  question         Question    @relation(fields: [questionId], references: [id])
+  userId           String?
+  user             User?       @relation(fields: [userId], references: [id])
+  guestId          String?
+  guest            GuestPlayer? @relation(fields: [guestId], references: [id])
+  optionIdx        Int
+  correct          Boolean
+  serverReceivedAt DateTime     @default(now())
+  score            Int          @default(0)
+
+  // Only ONE answer per player per question per room
+  @@unique([roomId, questionId, userId])
+  @@unique([roomId, questionId, guestId])
+  @@index([roomId, questionId])
+  @@map("answer")
+}
+
+// ─── League ───────────────────────────────────────────────────────────────────
+
+model LeagueEntry {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  collegeId String?
+  college   College? @relation(fields: [collegeId], references: [id])
+  score     Int
+  roomId    String
+  season    String   @default("default") // e.g. "2025-Q1"
+  playedAt  DateTime @default(now())
+
+  @@index([userId])
+  @@index([collegeId])
+  @@map("league_entry")
 }

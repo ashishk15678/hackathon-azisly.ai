@@ -1,0 +1,41 @@
+prompt,option1,option2,option3,option4,answer,topic,difficulty,time
+A train travels 60 km in 45 minutes. What is its speed in km/h?,80,90,75,120,1,quantitative,easy,25
+If 8 workers can complete a job in 12 days then 12 workers can complete it in how many days?,8,9,10,6,1,quantitative,easy,25
+A shopkeeper buys an item for ₹400 and sells it for ₹500. What is the profit percentage?,20,25,15,10,2,quantitative,easy,20
+The average of five numbers is 27. If one number is excluded the average becomes 25. What is the excluded number?,35,37,33,31,1,quantitative,easy,20
+A pipe fills a tank in 6 hours. A leak empties it in 8 hours. How long to fill the tank with both open?,24,20,18,16,1,quantitative,medium,30
+Two numbers are in the ratio 3:5. If their sum is 96 what is the larger number?,45,60,48,56,2,quantitative,medium,30
+A sum of ₹2000 is invested at 10% per annum compound interest. What is the amount after 2 years?,2400,2420,2200,2100,2,quantitative,medium,30
+A car depreciates 20% per year. If its current value is ₹500000 what was its value 2 years ago?,781250,750000,800000,700000,1,quantitative,hard,40
+A boat goes 30 km upstream in 6 hours and 30 km downstream in 3 hours. What is the speed of the stream?,2.5,5,3.5,4,2,quantitative,hard,40
+If 12 men can dig a trench 20 metres long in 10 days how long will 8 men take to dig a trench 30 metres long?,22.5,20,25,30,1,quantitative,hard,40
+All roses are flowers. Some flowers fade quickly. Which conclusion follows logically?,All roses fade quickly,Some roses may fade quickly,No roses fade quickly,All flowers are roses,2,logical,easy,25
+In a row Priya is 8th from the left and 5th from the right. How many people are in the row?,12,11,13,14,3,logical,easy,20
+If BOOK is coded as 2151511 then how is COOK coded?,3151511,3161511,2161511,3141511,1,logical,easy,20
+Find the odd one out: Dog Cat Fish Bird,Fish,Bird,Cat,Dog,1,logical,easy,20
+Complete the series: 2 6 12 20 30 ?,42,44,40,38,1,logical,easy,20
+A is taller than B. C is shorter than A. D is taller than C. Who could be the shortest?,B,C,D,A,1,logical,medium,30
+If Monday is the 3rd day of a month that begins on Saturday what day is the 20th?,Wednesday,Thursday,Friday,Tuesday,3,logical,medium,30
+In a family there are 6 members. A is the father of C who is the mother of F. B is the grandmother of F. D is the husband of A. E is the brother of C. How many females are there?,3,2,4,1,1,logical,medium,35
+A clock shows 3:15. What is the angle between the hour and minute hands?,7.5,8,6.5,5,1,logical,hard,40
+In a code language MANGO is written as NBNHP. How is APPLE written?,BQQMF,BQPMF,BRQMF,BQPLF,1,logical,hard,40
+Choose the correct synonym for BENEVOLENT: Generous,Hostile,Selfish,Cruel,1,verbal,easy,20
+Choose the word most opposite in meaning to VERBOSE: Concise,Wordy,Lengthy,Vague,1,verbal,easy,20
+Fill in the blank: The committee ______ its decision yesterday.,reached,has reached,reaches,reaching,1,verbal,easy,20
+Identify the correctly spelled word:,Accomodation,Accommodation,Accommadation,Accomedation,2,verbal,easy,20
+Choose the best meaning of the idiom "bite the bullet":,Endure a painful situation bravely,Eat hastily,Fire a gun,Run away from danger,1,verbal,medium,25
+Select the antonym of EPHEMERAL:,Permanent,Temporary,Brief,Fleeting,1,verbal,medium,25
+The passage implies that renewable energy is important. Which inference is best supported? Fossil fuels cause pollution. Solar panels are costly. Investment in renewables will grow. Nuclear is safer.,Investment in renewables will grow,Solar panels are costly,Nuclear is safer,Fossil fuels cause pollution,1,verbal,medium,30
+Choose the correct sentence:,He don't know the answer,He doesn't knows the answer,He doesn't know the answer,He not know the answer,3,verbal,medium,25
+Choose the word that best completes the analogy: Doctor : Hospital :: Teacher : ?,School,Student,Book,Classroom,1,verbal,hard,30
+Identify the grammatical error: Neither the students nor the teacher were present.,were should be was,teacher should be teachers,Neither should be Either,No error,1,verbal,hard,35
+The table shows: A sells 200 units at ₹50 each. B sells 150 units at ₹60 each. C sells 100 units at ₹80 each. Who has the highest revenue?,A,B,C,A and C equal,1,data_interpretation,easy,30
+A bar chart shows monthly sales: Jan=1000 Feb=1200 Mar=900 Apr=1500. What is the average monthly sales?,1150,1175,1100,1200,1,data_interpretation,easy,30
+Pie chart: 30% Engineering 25% Medical 20% Commerce 15% Arts 10% Other. In a class of 400 how many are in Commerce?,80,100,60,120,1,data_interpretation,easy,25
+In a data set the values are 10 20 30 40 50. What is the median?,30,25,35,20,1,data_interpretation,easy,20
+A table shows profit ratios — Year 1: 20% Year 2: 25% Year 3: 15% Year 4: 30%. What is the average annual profit ratio?,22.5,20,25,23,1,data_interpretation,medium,35
+A graph shows company revenue grew from ₹50 lakh to ₹80 lakh over 3 years. What is the percentage increase?,60,50,40,30,1,data_interpretation,medium,35
+In a frequency table the modal class has frequency 18. Adjacent classes have frequencies 12 and 15. Which class is the mode?,The class with frequency 18,The class with frequency 12,The class with frequency 15,Cannot be determined,1,data_interpretation,medium,30
+Sales data: Q1=400 Q2=500 Q3=450 Q4=600. If Q5 is expected to grow 20% over Q4 what is the Q5 forecast?,720,700,680,750,1,data_interpretation,hard,40
+Two datasets: Set A has mean 50 and SD 10. Set B has mean 50 and SD 20. Which set has more variability?,Set B,Set A,Equal variability,Cannot determine,1,data_interpretation,hard,40
+A Venn diagram shows: Only A=15 Only B=20 Both A and B=10 Neither=5. What is the total sample size?,50,45,55,40,1,data_interpretation,hard,35
