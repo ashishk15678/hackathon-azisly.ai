@@ -33,8 +33,7 @@ export function LoginForm() {
     mutate({ email, password });
   }
 
-  const serverError =
-    error?.message ?? null;
+  const serverError = error?.message ?? null;
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-5">

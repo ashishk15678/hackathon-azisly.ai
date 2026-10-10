@@ -8,11 +8,12 @@ export default function HomePage() {
           Live multiplayer quiz
         </span>
         <h1 className="text-5xl font-extrabold text-gray-900 tracking-tight mb-4 leading-tight">
-          Aptitude practice that<br className="hidden sm:block" /> actually feels like a game
+          Aptitude practice that
+          <br className="hidden sm:block" /> actually feels like a game
         </h1>
         <p className="text-lg text-gray-500 mb-10 max-w-xl mx-auto">
-          Join a room, race the clock, watch the leaderboard move. AptiQuiz turns
-          campus placement prep into a live multiplayer battle.
+          Join a room, race the clock, watch the leaderboard move. AptiQuiz
+          turns campus placement prep into a live multiplayer battle.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link

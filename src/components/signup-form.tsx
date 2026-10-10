@@ -105,9 +105,7 @@ export function SignupForm() {
             required
             value={value}
             onChange={(e) => setter(e.target.value)}
-            aria-describedby={
-              fieldErrors[id] ? `${id}-error` : undefined
-            }
+            aria-describedby={fieldErrors[id] ? `${id}-error` : undefined}
             aria-invalid={!!fieldErrors[id]}
             className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm shadow-sm placeholder:text-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 disabled:opacity-50"
             placeholder={placeholder}

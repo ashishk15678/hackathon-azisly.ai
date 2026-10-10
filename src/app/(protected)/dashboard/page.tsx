@@ -1,4 +1,4 @@
-  import { redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { createCaller } from "@/trpc/server";
 
 export const metadata = { title: "Dashboard — AptiQuiz" };
@@ -16,7 +16,9 @@ export default async function DashboardPage() {
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
           Welcome back, {session.user.name} 👋
         </h1>
-        <p className="text-gray-500 mb-8">Ready to play? Jump into a game or create a quiz.</p>
+        <p className="text-gray-500 mb-8">
+          Ready to play? Jump into a game or create a quiz.
+        </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
