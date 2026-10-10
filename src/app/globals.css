@@ -10,14 +10,130 @@
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-gray-50 text-gray-900;
+    background-color: #f0efe9;
+    color: #111827;
     font-family:
       ui-sans-serif,
       system-ui,
       -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
       sans-serif;
+    overflow-x: hidden;
   }
+}
+
+/* ──────────────────────────────────────────────
+   SCROLL-REVEAL base states
+────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-48px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(48px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.88);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* stagger delays – applied as companion classes */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+.delay-500 { transition-delay: 500ms; }
+.delay-600 { transition-delay: 600ms; }
+
+/* ──────────────────────────────────────────────
+   TICKER (vertical scroll)
+────────────────────────────────────────────── */
+@keyframes ticker {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+.ticker-track {
+  animation: ticker 20s linear infinite;
+}
+
+/* ──────────────────────────────────────────────
+   MARQUEE (horizontal)
+────────────────────────────────────────────── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  gap: 4rem;
+  white-space: nowrap;
+  animation: marquee 30s linear infinite;
+  width: max-content;
+}
+
+/* ──────────────────────────────────────────────
+   FLOAT animations (hero cards)
+────────────────────────────────────────────── */
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+.float-card {
+  animation: floatUp 4s ease-in-out infinite;
+}
+.float-card-slow {
+  animation: floatUp 5.5s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+/* ──────────────────────────────────────────────
+   PULSE dot
+────────────────────────────────────────────── */
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.8); }
+}
+.pulse-dot {
+  animation: pulseDot 1.6s ease-in-out infinite;
 }

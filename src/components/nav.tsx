@@ -7,11 +7,12 @@ export async function Nav() {
   const session = await caller.auth.getSession();
 
   return (
-    <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-sm border-b border-gray-200">
-      <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
+    <header className="sticky top-0 z-40 bg-[#f0efe9]/90 backdrop-blur-md border-b border-gray-200/60">
+      <div className="max-w-6xl mx-auto px-6 lg:px-16 h-14 flex items-center justify-between">
+        {/* Logo */}
         <Link
           href={session ? "/dashboard" : "/"}
-          className="flex items-center gap-2 font-bold text-gray-900 hover:text-indigo-600 transition-colors"
+          className="flex items-center gap-2 font-extrabold text-gray-900 hover:text-indigo-600 transition-colors text-lg"
         >
           <span className="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-indigo-600 text-white text-xs font-bold">
             A
@@ -19,7 +20,26 @@ export async function Nav() {
           AptiQuiz
         </Link>
 
-        <nav className="flex items-center gap-6">
+        {/* Centre nav links (hidden on mobile) */}
+        {!session && (
+          <nav className="hidden md:flex items-center gap-8 text-sm text-gray-600">
+            <Link href="#" className="hover:text-gray-900 transition-colors">
+              About
+            </Link>
+            <Link href="#" className="hover:text-gray-900 transition-colors">
+              Documentation
+            </Link>
+            <Link href="#" className="hover:text-gray-900 transition-colors">
+              Blog
+            </Link>
+            <button className="flex items-center gap-1 hover:text-gray-900 transition-colors">
+              Features <span className="text-xs text-gray-400">▾</span>
+            </button>
+          </nav>
+        )}
+
+        {/* Right */}
+        <div className="flex items-center gap-4">
           {session ? (
             <>
               <span className="hidden sm:block text-sm text-gray-600">
@@ -31,19 +51,19 @@ export async function Nav() {
             <>
               <Link
                 href="/login"
-                className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                className="hidden sm:block text-sm text-gray-600 hover:text-gray-900 transition-colors"
               >
                 Sign in
               </Link>
               <Link
                 href="/signup"
-                className="rounded-lg bg-indigo-600 px-3.5 py-1.5 text-sm font-semibold text-white hover:bg-indigo-500 transition-colors"
+                className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500 transition-colors shadow-sm"
               >
-                Get started
+                Request a demo
               </Link>
             </>
           )}
-        </nav>
+        </div>
       </div>
     </header>
   );
